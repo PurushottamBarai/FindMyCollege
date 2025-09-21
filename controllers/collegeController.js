@@ -1,6 +1,5 @@
 const College = require('../models/College');
 
-// Get all colleges with filters
 exports.getColleges = async (req, res) => {
     try {
         const {
@@ -12,7 +11,6 @@ exports.getColleges = async (req, res) => {
             limit = 20
         } = req.query;
 
-        // Build filter object
         const filter = {};
         
         if (course && course !== 'All') {
@@ -35,16 +33,13 @@ exports.getColleges = async (req, res) => {
             ];
         }
 
-        // Calculate pagination
         const skip = (page - 1) * limit;
         
-        // Get colleges with pagination
         const colleges = await College.find(filter)
             .skip(skip)
             .limit(parseInt(limit))
             .sort({ srNo: 1 });
             
-        // Get total count for pagination
         const total = await College.countDocuments(filter);
         
         res.json({
@@ -65,7 +60,6 @@ exports.getColleges = async (req, res) => {
     }
 };
 
-// Get filter options
 exports.getFilterOptions = async (req, res) => {
     try {
         const [courses, districts, courseTypes] = await Promise.all([
@@ -91,7 +85,6 @@ exports.getFilterOptions = async (req, res) => {
     }
 };
 
-// Get college by ID
 exports.getCollegeById = async (req, res) => {
     try {
         const college = await College.findById(req.params.id);

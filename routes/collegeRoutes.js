@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const College = require('../models/College');
 
-// GET all colleges with optional filters
 router.get('/', async (req, res) => {
     try {
         const {
@@ -14,7 +13,6 @@ router.get('/', async (req, res) => {
             limit = 20
         } = req.query;
 
-        // Build filter object using actual field names that exist in your DB
         const filter = {};
         
         if (district && district !== 'All') {
@@ -29,7 +27,6 @@ router.get('/', async (req, res) => {
             filter['Course Type'] = courseType;
         }
         
-        // Add search functionality
         if (search && search.trim()) {
             filter.$or = [
                 { 'College Name': { $regex: search, $options: 'i' } },
@@ -67,7 +64,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET unique values for dropdowns
 router.get('/filters', async (req, res) => {
     try {
         const districts = await College.distinct('District');
