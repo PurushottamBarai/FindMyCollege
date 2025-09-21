@@ -6,20 +6,16 @@ const College = require('../models/College');
 
 const seedDatabase = async () => {
     try {
-        // Connect to MongoDB
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI);    // Connect to MongoDB
         console.log('Connected to MongoDB');
 
-        // Clear existing data
         await College.deleteMany({});
         console.log('Cleared existing college data');
 
-        // Read JSON data
         const dataPath = path.join(__dirname, '..', 'UG.json');
         const jsonData = fs.readFileSync(dataPath, 'utf8');
         const collegeData = JSON.parse(jsonData);
 
-        // Simple transformation - exactly as your JSON structure
         const transformedData = collegeData.map(item => ({
             srNo: item["Sr. No."],
             collegeCode: item["College Code"],
@@ -32,7 +28,6 @@ const seedDatabase = async () => {
 
         console.log(`Processing ${transformedData.length} records...`);
 
-        // Insert data
         await College.insertMany(transformedData);
         console.log(`Successfully inserted ${transformedData.length} colleges`);
 

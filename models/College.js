@@ -1,45 +1,30 @@
 const mongoose = require('mongoose');
 
 const collegeSchema = new mongoose.Schema({
-    'Sr. No.': {
+    srNo: {
         type: Number,
         required: true
     },
-    'College Code': {
+    collegeCode: {
         type: String,
-        required: false,
-        default: null
+        required: true,
+        unique: true
     },
-    'Course Type': {
+    courseType: {
         type: String,
         required: true
     },
-    'Course Name': {
+    courseName: {
         type: String,
         required: true
     },
-    'District': {
+    district: {
         type: String,
         required: true
     },
-    'College Name': {
+    collegeName: {
         type: String,
         required: true
-    },
-    'University': {
-        type: String,
-        required: false,
-        default: null
-    },
-    'Course Status': {
-        type: String,
-        required: false,
-        default: null
-    },
-    'Course Autonomy Status': {
-        type: String,
-        required: false,
-        default: null
     },
     contactNumber: {
         type: String,
@@ -49,10 +34,9 @@ const collegeSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Create indexes for better search performance
-collegeSchema.index({ 'District': 1 });
-collegeSchema.index({ 'Course Name': 1 });
-collegeSchema.index({ 'Course Type': 1 });
-collegeSchema.index({ 'College Name': 'text' });
+collegeSchema.index({ district: 1 });
+collegeSchema.index({ courseName: 1 });
+collegeSchema.index({ courseType: 1 });
+collegeSchema.index({ collegeName: 'text' });
 
 module.exports = mongoose.model('College', collegeSchema);
