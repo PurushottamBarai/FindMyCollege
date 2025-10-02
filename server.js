@@ -5,8 +5,9 @@ require('dotenv').config();
 
 const connectDatabase = require('./config/database');
 const collegeRoutes = require('./routes/collegeRoutes');
+const adminRoutes = require('./routes/adminRoutes');  // ← Add this line
 
-const app = express();
+const app = express();  // ← app created here
 
 connectDatabase();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/api/colleges', collegeRoutes);
+app.use('/api/admin', adminRoutes);  // ← Add this line AFTER app is created
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -23,5 +25,5 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port https://localhost:${PORT}`);
 });

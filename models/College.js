@@ -1,42 +1,35 @@
+// models/College.js
 const mongoose = require('mongoose');
 
 const collegeSchema = new mongoose.Schema({
-    srNo: {
+    'Sr. No.': {
         type: Number,
         required: true
     },
-    collegeCode: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    courseType: {
+    'College Code': {
         type: String,
         required: true
     },
-    courseName: {
+    'Course Type': {
         type: String,
         required: true
     },
-    district: {
+    'Course Name': {
         type: String,
         required: true
     },
-    collegeName: {
+    'District': {
         type: String,
         required: true
     },
-    contactNumber: {
+    'College Name': {
         type: String,
-        default: null
-    }
+        required: true
+    },
+    'Location': String,
+    'contactNumber': String
 }, {
-    timestamps: true
+    collection: 'colleges'
 });
-
-collegeSchema.index({ district: 1 });
-collegeSchema.index({ courseName: 1 });
-collegeSchema.index({ courseType: 1 });
-collegeSchema.index({ collegeName: 'text' });
 
 module.exports = mongoose.model('College', collegeSchema);
