@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/api/colleges', collegeRoutes);
-app.use('/api/admin', adminRoutes);  // ← Add this line AFTER app is created
+app.use('/api/admin', adminRoutes);  
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -25,5 +25,5 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port https://localhost:${PORT}`);
+    console.log(`Server running on port localhost:${PORT}`);
 });
