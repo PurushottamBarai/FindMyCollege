@@ -6,13 +6,13 @@ const College = require('../models/College');
 
 const seedDatabase = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI);    // Connect to MongoDB
+        await mongoose.connect(process.env.MONGODB_URI);
         console.log('Connected to MongoDB');
 
         await College.deleteMany({});
         console.log('Cleared existing college data');
 
-        const dataPath = path.join(__dirname, '..', 'UG.json');
+        const dataPath = path.join(__dirname, '..', '..', 'UG.json');
         const jsonData = fs.readFileSync(dataPath, 'utf8');
         const collegeData = JSON.parse(jsonData);
 

@@ -1,9 +1,7 @@
-// routes/adminRoutes.js
 const express = require('express');
 const router = express.Router();
 const College = require('../models/College');
 
-// Add new college
 router.post('/colleges', async (req, res) => {
     try {
         const college = new College(req.body);
@@ -14,7 +12,6 @@ router.post('/colleges', async (req, res) => {
     }
 });
 
-// Update college
 router.put('/colleges/:id', async (req, res) => {
     try {
         const college = await College.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -25,7 +22,6 @@ router.put('/colleges/:id', async (req, res) => {
     }
 });
 
-// Delete college
 router.delete('/colleges/:id', async (req, res) => {
     try {
         const college = await College.findByIdAndDelete(req.params.id);
@@ -36,7 +32,6 @@ router.delete('/colleges/:id', async (req, res) => {
     }
 });
 
-// Search college for update/delete
 router.get('/colleges/search', async (req, res) => {
     try {
         const { q } = req.query;
