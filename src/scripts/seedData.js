@@ -3,11 +3,13 @@ const fs = require('fs');
 const path = require('path');
 const College = require('../models/College');
 
-const LOCAL_MONGODB_URI = 'mongodb://localhost:27017/findmycollegeDB';
+require('dotenv').config();
+
+const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/findmycollegeDB';
 
 const seedDatabase = async () => {
     try {
-        await mongoose.connect(LOCAL_MONGODB_URI); 
+        await mongoose.connect(MONGODB_URI); 
         console.log('Connected to MongoDB');
 
         await College.deleteMany({});
