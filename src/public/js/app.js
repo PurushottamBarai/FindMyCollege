@@ -171,13 +171,13 @@ class CollegeSearchApp {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${college['Sr. No.'] || 'N/A'}</td>
-        <td>${college['College Code'] || 'N/A'}</td>
+        <td><a href="#" class="college-code-link" onclick="window.fetchCollegeDetails('${college['College Code']}'); return false;">${college['College Code'] || 'N/A'}</a></td>
         <td>${college['District'] || 'N/A'}</td>
         <td class="college-name">${college['College Name'] || 'N/A'}</td>
         <td>
-            <span class="course-badge">${college['Course Name'] || 'N/A'}</span>
+            <span class="course-badge">${college['Status'] || 'N/A'}</span>
         </td>
-        <td>${college.contactNumber || 'N/A'}</td>
+        <td>${college['Total Intake'] || 'N/A'}</td>
       `;
       resultsBody.appendChild(row);
     });
@@ -266,6 +266,47 @@ class CollegeSearchApp {
     alert(message);
   }
 }
+
+// Global function to be called from onclick
+window.fetchCollegeDetails = async function(code) {
+  const modal = document.getElementById('detailsModal');
+  const detailsContent = document.getElementById('detailsContent');
+  if (!modal || !detailsContent) {
+      alert("Details for College Code: " + code + "\n(Modal UI not found in index.html)");
+      return;
+  }
+  
+  modal.style.display = 'block';
+  detailsContent.innerHTML = '<p>Loading live data from CET Cell...</p>';
+  
+  try {
+      const response = await fetch('/api/colleges/' + code + '/details');
+      const data = await response.json();
+      
+      if (data.success && data.data) {
+          const d = data.data;
+          detailsContent.innerHTML = `
+              <h3>Institute Code: ${code}</h3>
+              <p><strong>Address:</strong> ${d.Address}</p>
+              <p><strong>Region:</strong> ${d.Region}</p>
+              <p><strong>District:</strong> ${d.District}</p>
+              <p><strong>Status:</strong> ${d.Status}</p>
+              <p><strong>Email:</strong> <a href="mailto:${d.Email}">${d.Email}</a></p>
+              <p><strong>Website:</strong> <a href="${d.Website.startsWith('http') ? d.Website : 'http://' + d.Website}" target="_blank">${d.Website}</a></p>
+              <p><strong>Registrar:</strong> ${d.Registrar}</p>
+          `;
+      } else {
+          detailsContent.innerHTML = '<p>Failed to load details from CET cell.</p>';
+      }
+  } catch(e) {
+      detailsContent.innerHTML = '<p>Error fetching data.</p>';
+  }
+};
+
+window.closeDetailsModal = function() {
+  const modal = document.getElementById('detailsModal');
+  if (modal) modal.style.display = 'none';
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   new CollegeSearchApp();

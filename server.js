@@ -13,6 +13,7 @@ const app = express();
 
 connectDatabase();
 
+//this is a middleware to check if the user is admin or not
 function requireAdmin(req, res, next) {
     if (req.headers['x-admin-auth'] === 'true') {
         return next();

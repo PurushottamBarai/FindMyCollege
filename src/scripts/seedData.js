@@ -1,11 +1,14 @@
+/*why is it needed?Imagine if you delete MongoDB database accidentally, or you want to launch a brand-new testing database. Instead of manually re-typing hundreds of colleges into your Admin panel, you simply run npm run seed, and your entire database is instantly rebuilt in 2 seconds. 
+*/
+
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const College = require('../models/College');
 
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 
-const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/findmycollegeDB';
+const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/findmycollege';
 
 const seedDatabase = async () => {
     try {

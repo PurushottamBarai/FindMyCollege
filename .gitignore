@@ -3,5 +3,5 @@ node_modules/
 *.log
 .DS_Store
 .vscode/
-src/public/imgs/jdk-25_windows-x64_bin.exe
 .gitattributes
+UG.json

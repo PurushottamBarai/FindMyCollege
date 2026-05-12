@@ -284,3 +284,4 @@ async function deleteCollege(id, name) {
     alert("Error deleting: " + error.message);
   }
 }
+

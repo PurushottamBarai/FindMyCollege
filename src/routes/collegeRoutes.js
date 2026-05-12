@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const College = require('../models/College');
 
+
 router.get('/', async (req, res) => {
     try {
         const {
@@ -87,5 +88,7 @@ router.get('/filters', async (req, res) => {
         });
     }
 });
+
+
 
 module.exports = router;

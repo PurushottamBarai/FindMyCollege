@@ -1,3 +1,7 @@
+/*This models folder holds the structure / schema for your database. 
+These are the fields that will be present in your database.
+They also tell the database what type of data to expect (e.g. String, Number).*/
+
 const mongoose = require('mongoose');
 
 const collegeSchema = new mongoose.Schema({
@@ -5,13 +9,13 @@ const collegeSchema = new mongoose.Schema({
         type: Number
     },
     "College Code": {
-        type: String
+        type: String,
+        required: true,
+        unique: true
     },
     "College Name": {
-        type: String
-    },
-    "District": {
-        type: String
+        type: String,
+        required: true
     },
     "Course Name": {
         type: String
@@ -19,10 +23,13 @@ const collegeSchema = new mongoose.Schema({
     "Course Type": {
         type: String
     },
-    "Location": {
+    "Status": {
         type: String
     },
-    "Contact Number": {
+    "Total Intake": {
+        type: Number
+    },
+    "District": {
         type: String
     }
 }, { 

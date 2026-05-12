@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const College = require('../models/College');
 
+
 router.post('/colleges', async (req, res) => {
     try {
         const college = new College(req.body);
@@ -47,5 +48,7 @@ router.get('/colleges/search', async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
+
+
 
 module.exports = router;

@@ -1,3 +1,5 @@
+/* dedicated folder just for securely connecting to MongoDB */
+
 const mongoose = require('mongoose');
 
 const connectDatabase = async () => {
