@@ -33,6 +33,8 @@ Create a `.env` file in the root directory and add your MongoDB Atlas connection
 ```env
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/findmycollege
 PORT=3000
+ADMIN_USERNAME=your_admin_username
+ADMIN_PASSWORD=your_admin_password
 ```
 
 4. Start the app
@@ -42,8 +44,11 @@ npm start
 The application will be available at `http://localhost:3000`
 
 ## Project Structure
-- `src/models/`: Contains Mongoose schemas (e.g., `College.js`) that define the structure of data stored in MongoDB.
-- `src/routes/`: Contains all the Express API endpoints (colleges, admin, auth) to keep the backend modular.
-- `src/scripts/`: Contains utility scripts (like `seedData.js`) used to initially populate your MongoDB Atlas database using data from `UG.json`.
-- `src/config/`: Contains the database connection logic.
-- `src/public/`: Contains the frontend HTML, CSS, and JS files served to the user.
+- `src/index.js`: The application entry point that initializes the database connection and starts the HTTP server.
+- `src/app.js`: Configures the Express application, registers middlewares, and mounts routes.
+- `src/models/`: Contains Mongoose schemas (e.g., `college.model.js`) that define the structure of data stored in MongoDB.
+- `src/routes/`: Contains all the Express API endpoints (e.g., `college.route.js`, `auth.route.js`) to keep the backend modular.
+- `src/controllers/`: Contains controller functions that handle incoming HTTP requests and responses.
+- `src/db/`: Contains database connection and configuration logic (including `seeder.js`).
+- `src/middlewares/`: Contains Express middlewares (e.g., `auth.middleware.js`, `error.middleware.js`).
+- `public/`: Contains the frontend HTML, CSS, and JS files served to the user.

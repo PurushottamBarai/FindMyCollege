@@ -4,4 +4,4 @@ node_modules/
 .DS_Store
 .vscode/
 .gitattributes
-UG.json
+src/db/data/UG.json

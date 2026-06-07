@@ -1,9 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const College = require('../models/College');
+import College from '../models/college.model.js';
 
-
-router.get('/', async (req, res) => {
+export const getColleges = async (req, res, next) => {
     try {
         const {
             search,
@@ -56,16 +53,11 @@ router.get('/', async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error fetching colleges:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Server Error',
-            error: error.message
-        });
+        next(error);
     }
-});
+};
 
-router.get('/filters', async (req, res) => {
+export const getFilters = async (req, res, next) => {
     try {
         const districts = await College.distinct('District');
         const courseNames = await College.distinct('Course Name');
@@ -80,15 +72,6 @@ router.get('/filters', async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Error fetching filter options:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Server Error',
-            error: error.message
-        });
+        next(error);
     }
-});
-
-
-
-module.exports = router;
+};

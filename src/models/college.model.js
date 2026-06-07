@@ -1,8 +1,4 @@
-/*This models folder holds the structure / schema for your database. 
-These are the fields that will be present in your database.
-They also tell the database what type of data to expect (e.g. String, Number).*/
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const collegeSchema = new mongoose.Schema({
     "Sr. No.": {
@@ -37,4 +33,4 @@ const collegeSchema = new mongoose.Schema({
     collection: 'colleges' 
 });
 
-module.exports = mongoose.model('College', collegeSchema);
+export default mongoose.model('College', collegeSchema);

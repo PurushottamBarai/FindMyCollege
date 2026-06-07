@@ -1,39 +1,36 @@
-const express = require('express');
-const router = express.Router();
-const College = require('../models/College');
+import College from '../models/college.model.js';
 
-
-router.post('/colleges', async (req, res) => {
+export const createCollege = async (req, res, next) => {
     try {
         const college = new College(req.body);
         await college.save();
         res.json({ success: true, message: 'College added successfully', data: college });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        next(error);
     }
-});
+};
 
-router.put('/colleges/:id', async (req, res) => {
+export const updateCollege = async (req, res, next) => {
     try {
         const college = await College.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!college) return res.status(404).json({ success: false, message: 'College not found' });
         res.json({ success: true, message: 'College updated successfully', data: college });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        next(error);
     }
-});
+};
 
-router.delete('/colleges/:id', async (req, res) => {
+export const deleteCollege = async (req, res, next) => {
     try {
         const college = await College.findByIdAndDelete(req.params.id);
         if (!college) return res.status(404).json({ success: false, message: 'College not found' });
         res.json({ success: true, message: 'College deleted successfully' });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        next(error);
     }
-});
+};
 
-router.get('/colleges/search', async (req, res) => {
+export const searchColleges = async (req, res, next) => {
     try {
         const { q } = req.query;
         const colleges = await College.find({
@@ -45,10 +42,6 @@ router.get('/colleges/search', async (req, res) => {
         }).limit(10);
         res.json({ success: true, data: colleges });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        next(error);
     }
-});
-
-
-
-module.exports = router;
+};

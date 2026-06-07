@@ -1,8 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../models/users');
+import User from '../models/users.model.js';
 
-router.post('/login', async (req, res) => {
+export const login = async (req, res, next) => {
     try {
         const { usernameOrEmail, password } = req.body;
 
@@ -22,11 +20,11 @@ router.post('/login', async (req, res) => {
 
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        next(error);
     }
-});
+};
 
-router.post('/register', async (req, res) => {
+export const register = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -59,8 +57,6 @@ router.post('/register', async (req, res) => {
 
         return res.json({ success: true, message: 'Registration successful. You can login now.' });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        next(error);
     }
-});
-
-module.exports = router;
+};
