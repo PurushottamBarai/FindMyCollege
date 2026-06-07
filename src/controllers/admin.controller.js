@@ -39,8 +39,27 @@ export const searchColleges = async (req, res, next) => {
                 { 'College Code': { $regex: q, $options: 'i' } },
                 { 'District': { $regex: q, $options: 'i' } }
             ]
-        }).limit(10);
-        res.json({ success: true, data: colleges });
+        }).limit(10).lean();
+
+        const getSrNo = (c) => {
+            if (c.SrNo !== undefined && c.SrNo !== null) return c.SrNo;
+            if (c["Sr. No."] !== undefined && c["Sr. No."] !== null) return c["Sr. No."];
+            if (c.Sr && c.Sr.No !== undefined && c.Sr.No !== null) {
+                if (typeof c.Sr.No === 'object') {
+                    const nestedVal = c.Sr.No[""] || Object.values(c.Sr.No)[0];
+                    if (nestedVal !== undefined && nestedVal !== null) return nestedVal;
+                }
+                return c.Sr.No;
+            }
+            return null;
+        };
+
+        const mappedColleges = colleges.map(c => ({
+            ...c,
+            SrNo: getSrNo(c)
+        }));
+
+        res.json({ success: true, data: mappedColleges });
     } catch (error) {
         next(error);
     }

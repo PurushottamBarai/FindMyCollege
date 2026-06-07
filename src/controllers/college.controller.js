@@ -125,11 +125,29 @@ export const getColleges = async (req, res, next) => {
             .limit(parseInt(limit))
             .lean();
 
+        const getSrNo = (c) => {
+            if (c.SrNo !== undefined && c.SrNo !== null) return c.SrNo;
+            if (c["Sr. No."] !== undefined && c["Sr. No."] !== null) return c["Sr. No."];
+            if (c.Sr && c.Sr.No !== undefined && c.Sr.No !== null) {
+                if (typeof c.Sr.No === 'object') {
+                    const nestedVal = c.Sr.No[""] || Object.values(c.Sr.No)[0];
+                    if (nestedVal !== undefined && nestedVal !== null) return nestedVal;
+                }
+                return c.Sr.No;
+            }
+            return null;
+        };
+
+        const mappedColleges = colleges.map(c => ({
+            ...c,
+            SrNo: getSrNo(c)
+        }));
+
         const total = await College.countDocuments(filter);
 
         res.json({
             success: true,
-            data: colleges,
+            data: mappedColleges,
             pagination: {
                 current: parseInt(page),
                 pages: Math.ceil(total / limit),
