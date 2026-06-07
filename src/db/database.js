@@ -20,19 +20,31 @@ const connectDatabase = async () => {
 
     console.log('*** Using Mongo URI:', uri);
 
-    // Mongoose connection options/configuration (ORM config & pooling)
     const options = {
       authSource: 'admin',
-      // Mongoose / MongoDB connection pool settings
-      maxPoolSize: 10, // Maintain up to 10 socket connections
-      minPoolSize: 2,  // Keep at least 2 connections
-      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-      serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-      heartbeatFrequencyMS: 10000, // Check server status every 10 seconds
+      maxPoolSize: 10, 
+      minPoolSize: 2,  
+      socketTimeoutMS: 45000, 
+      serverSelectionTimeoutMS: 5000, 
+      heartbeatFrequencyMS: 10000, 
     };
 
     const conn = await mongoose.connect(uri, options);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
+
+    try {
+      const collegesCol = conn.connection.db.collection('colleges');
+      const indexes = await collegesCol.indexes();
+      for (const index of indexes) {
+        if (index.key && index.key['College Code'] !== undefined && index.unique) {
+          console.log(`*** Automatically dropping unique index: ${index.name}`);
+          await collegesCol.dropIndex(index.name);
+        }
+      }
+    } catch (idxErr) {
+      console.log('Skipping index cleanup (collection may not exist yet):', idxErr.message);
+    }
+
     return conn;
   } catch (error) {
     console.error('Database connection error:', error);
@@ -40,7 +52,6 @@ const connectDatabase = async () => {
   }
 };
 
-// Listen for connection events
 mongoose.connection.on('connected', () => {
   console.log('Mongoose connection established to MongoDB Atlas/Local.');
 });
@@ -53,7 +64,6 @@ mongoose.connection.on('disconnected', () => {
   console.log('Mongoose connection disconnected.');
 });
 
-// Capture App termination/restart events for clean cleanup
 process.on('SIGINT', async () => {
   await mongoose.connection.close();
   console.log('Mongoose connection closed through app termination.');

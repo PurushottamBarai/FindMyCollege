@@ -1,6 +1,14 @@
+function safeGetItem(key) {
+    try {
+        return localStorage.getItem(key);
+    } catch (e) {
+        return null;
+    }
+}
+
 function isUserLoggedIn() {
-    return localStorage.getItem('userRole') === 'user' &&
-           localStorage.getItem('isLoggedIn') === 'true';
+    return safeGetItem('userRole') === 'user' &&
+           safeGetItem('isLoggedIn') === 'true';
 }
 
 function initIndexUserUI() {
@@ -16,7 +24,7 @@ function initIndexUserUI() {
         if (registerLink) registerLink.style.display = 'none';
         profileWrapper.style.display = 'flex';
 
-        const email = localStorage.getItem('userEmail') || '';
+        const email = safeGetItem('userEmail') || '';
         const first = email.trim().charAt(0).toUpperCase();
         profileIcon.textContent = first || 'U';
     } else {
@@ -44,23 +52,50 @@ document.addEventListener('click', (event) => {
 });
 
 function viewUserProfile() {
-    const email = localStorage.getItem('userEmail') || 'Unknown';
+    const email = safeGetItem('userEmail') || 'Unknown';
     alert(`Profile\nEmail: ${email}`);
 }
 
 function userLogout() {
     if (confirm('Are you sure you want to logout?')) {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('userEmail');
+        try {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userEmail');
+        } catch (e) {}
         window.location.replace('/login.html');
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    initIndexUserUI();
+// Global mobile menu toggle
+window.toggleMobileMenu = function(e) {
+    if (e) e.stopPropagation();
+    const btn = document.getElementById('hamburgerMenuBtn');
+    const links = document.querySelector('.nav-links');
+    if (btn && links) {
+        btn.classList.toggle('open');
+        links.classList.toggle('show');
+    }
+};
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const btn = document.getElementById('hamburgerMenuBtn');
+    const links = document.querySelector('.nav-links');
+    if (btn && links && !links.contains(e.target) && !btn.contains(e.target)) {
+        btn.classList.remove('open');
+        links.classList.remove('show');
+    }
 });
 
-window.addEventListener('pageshow', () => {
+function runInitializers() {
     initIndexUserUI();
-});
+}
+
+if (document.readyState !== 'loading') {
+    runInitializers();
+} else {
+    document.addEventListener('DOMContentLoaded', runInitializers);
+}
+
+window.addEventListener('pageshow', runInitializers);

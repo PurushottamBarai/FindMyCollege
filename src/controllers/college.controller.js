@@ -81,7 +81,13 @@ export const getColleges = async (req, res, next) => {
         }
         
         if (courseType && courseType !== 'All') {
-            filter['Course Type'] = courseType;
+            if (courseType === 'Under Graduate') {
+                filter['Course Type'] = { $in: ['Under Graduate', 'UG', 'B.Tech/B.E.'] };
+            } else if (courseType === 'Post Graduate') {
+                filter['Course Type'] = { $in: ['Post Graduate', 'PG'] };
+            } else {
+                filter['Course Type'] = courseType;
+            }
         }
 
         if (status && status !== 'All') {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FindMyCollege - Login</title>
-    <link rel="icon" type="image/webp" sizes="16x16" href="imgs/favicon.webp" />
+    <link rel="icon" type="image/webp" sizes="16x16" href="/imgs/favicon.webp" />
     <link rel="stylesheet" href="css/login.css" />
   </head>
   <body>
@@ -16,6 +16,11 @@
               <img src="imgs/logo.png" alt="FindMyCollege" />
             </a>
           </div>
+          <button class="hamburger" id="hamburgerMenuBtn" aria-label="Toggle navigation" onclick="toggleMobileMenu(event)">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
           <div class="nav-links">
             <a href="index.html" class="nav-link">Home</a>
             <a href="about.html" class="nav-link">About</a>
@@ -64,6 +69,7 @@
       </div>
     </footer>
 
+    <script src="js/indexUserUI.js"></script>
     <script src="js/login.js"></script>
   </body>
 </html>
