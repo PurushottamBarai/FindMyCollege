@@ -121,6 +121,7 @@ export const getColleges = async (req, res, next) => {
         const skip = (page - 1) * limit;
         
         const colleges = await College.find(filter)
+            .sort({ SrNo: 1 })
             .skip(skip)
             .limit(parseInt(limit))
             .lean();
