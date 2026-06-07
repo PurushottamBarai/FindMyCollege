@@ -28,17 +28,26 @@ const seedDatabase = async () => {
     const jsonData = fs.readFileSync(dataPath, 'utf8');
     const collegeData = JSON.parse(jsonData);
 
-    const transformedData = collegeData.map((item) => ({
-      "Sr. No.": item["Sr. No."],
-      "College Code": item["College Code"],
-      "Course Type": item["Course Type"],
-      "Course Name": item["Course Name"],
-      "District": item["District"],
-      "College Name": item["College Name"],
-      "Contact Number": item["Contact Number"] || null,
-      "Status": item["Status"] || null,
-      "Total Intake": item["Total Intake"] || null
-    }));
+    const transformedData = collegeData.map((item) => {
+      let courseType = item["Course Type"];
+      if (courseType === "UG" || courseType === "B.Tech/B.E.") {
+        courseType = "Under Graduate";
+      } else if (courseType === "PG") {
+        courseType = "Post Graduate";
+      }
+
+      return {
+        "SrNo": item["Sr. No."],
+        "College Code": item["College Code"],
+        "Course Type": courseType,
+        "Course Name": item["Course Name"],
+        "District": item["District"],
+        "College Name": item["College Name"],
+        "Contact Number": item["Contact Number"] || null,
+        "Status": item["Status"] || null,
+        "Total Intake": item["Total Intake"] || null
+      };
+    });
 
     console.log(`Processing ${transformedData.length} records...`);
 

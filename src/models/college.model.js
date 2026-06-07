@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
 
 const collegeSchema = new mongoose.Schema({
-    "Sr. No.": {
+    "SrNo": {
         type: Number
     },
     "College Code": {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     "College Name": {
         type: String,

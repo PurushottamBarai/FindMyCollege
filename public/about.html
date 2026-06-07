@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindMyCollege - About Us</title>
+    <link rel="icon" type="image/webp" sizes="16x16" href="imgs/favicon.webp" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/about.css" />
+    <link rel="stylesheet" href="css/user-profile.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-container">
+          <div class="logo">
+            <a href="index.html">
+              <img src="imgs/logo.png" alt="FindMyCollege" />
+            </a>
+          </div>
+          <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link active">About</a>
+            <a href="login.html" class="btn-outline-pill" id="loginNavLink">Login</a>
+            <a href="register.html" class="btn-solid-pill" id="registerNavLink">Get Started</a>
+
+            <div
+              class="profile-wrapper"
+              id="userProfileWrapper"
+              style="display: none"
+            >
+              <div
+                class="profile-icon"
+                id="userProfileIcon"
+                onclick="toggleUserDropdown()"
+              >
+                U
+              </div>
+              <div class="dropdown" id="userProfileDropdown">
+                <div class="dropdown-item" onclick="viewUserProfile()">
+                  View Profile
+                </div>
+                <div class="dropdown-item" onclick="userLogout()">Logout</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page-wrapper-about">
+        <!-- Hero Section -->
+        <section class="about-hero">
+          <h1>About FindMyCollege</h1>
+          <p>
+            FindMyCollege is a dynamic, student-centric platform designed to simplify the college exploration and search process for undergraduate and postgraduate aspirants in Maharashtra.
+          </p>
+        </section>
+
+        <!-- Metrics Section -->
+        <section class="metrics-row">
+          <div class="metric-card">
+            <span class="number">1,200+</span>
+            <span class="label">Colleges Indexed</span>
+          </div>
+          <div class="metric-card">
+            <span class="number">28+</span>
+            <span class="label">Academic Courses</span>
+          </div>
+          <div class="metric-card">
+            <span class="number">100%</span>
+            <span class="label">Free Directory</span>
+          </div>
+        </section>
+
+        <!-- Details Grid -->
+        <section class="about-grid">
+          <div class="about-card">
+            <h2>Our Mission</h2>
+            <p>
+              We believe that choosing where to study is one of the most critical decisions in a student's academic life. Our mission is to make this journey transparent, accurate, and completely stress-free by providing comprehensive, structured directories, seats capacity statistics, and detailed regional directories at the click of a button.
+            </p>
+          </div>
+
+          <div class="about-card">
+            <h2>Key Search Features</h2>
+            <p>
+              The platform incorporates dynamic, multi-filter query options to narrow down your choices instantly:
+            </p>
+            <ul class="features-list">
+              <li>Filter by study level: Under Graduate and Post Graduate</li>
+              <li>Filter by specific academic courses and programs</li>
+              <li>Filter by regions and districts across Maharashtra</li>
+              <li>Filter by college statuses: Government, Private, Autonomous, and more</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 FindMyCollege. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/indexUserUI.js"></script>
+  </body>
+</html>

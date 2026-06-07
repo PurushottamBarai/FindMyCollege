@@ -5,6 +5,7 @@ function isUserLoggedIn() {
 
 function initIndexUserUI() {
     const loginLink = document.getElementById('loginNavLink');
+    const registerLink = document.getElementById('registerNavLink');
     const profileWrapper = document.getElementById('userProfileWrapper');
     const profileIcon = document.getElementById('userProfileIcon');
 
@@ -12,13 +13,15 @@ function initIndexUserUI() {
 
     if (isUserLoggedIn()) {
         loginLink.style.display = 'none';
+        if (registerLink) registerLink.style.display = 'none';
         profileWrapper.style.display = 'flex';
 
         const email = localStorage.getItem('userEmail') || '';
         const first = email.trim().charAt(0).toUpperCase();
         profileIcon.textContent = first || 'U';
     } else {
-        loginLink.style.display = 'inline-block';
+        loginLink.style.display = 'inline-flex';
+        if (registerLink) registerLink.style.display = 'inline-flex';
         profileWrapper.style.display = 'none';
     }
 }

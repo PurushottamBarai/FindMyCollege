@@ -1,3 +1,5 @@
+/* login.css - Updated Theme Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,15 +12,13 @@ body {
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fafafa;
-  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #FAFAFC;
+  color: #0F172A;
   display: flex;
   flex-direction: column;
   line-height: 1.6;
 }
-
-/* Layout similar to index */
 
 .container {
   max-width: 1200px;
@@ -30,7 +30,7 @@ body {
 header {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e1e5e9;
+  border-bottom: 1px solid #E2E8F0;
   position: fixed;
   top: 0;
   left: 0;
@@ -57,32 +57,34 @@ header {
   cursor: pointer;
 }
 
+.logo a:focus {
+  outline: none;
+}
+
 .nav-links {
   display: flex;
   gap: 0.5rem;
 }
 
 .nav-link {
-  color: #4a5568;
+  color: #64748B;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-out;
   font-weight: 500;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  background-color: #f7fafc;
-  color: #667eea;
+  background-color: #EEF2FF;
+  color: #002171;
 }
 
 main {
   flex: 1;
   padding-top: 70px;
 }
-
-/* Login-specific layout */
 
 .page-wrapper-login {
   max-width: 1200px;
@@ -93,92 +95,113 @@ main {
 }
 
 .loginForm {
-  background: #ffffff;
-  width: 320px;
-  padding: 2rem 2.2rem;
-  border-radius: 1.1rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  background: #FFFFFF;
+  width: 340px;
+  padding: 2.2rem;
+  border-radius: 16px; /* 16px radius */
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+  border: 1px solid #E2E8F0;
+  transition: transform 300ms ease;
+}
+
+.loginForm:hover {
+  transform: translateY(-2px);
 }
 
 .loginForm h1 {
   text-align: center;
   font-size: 1.7rem;
   font-weight: 700;
+  color: #0F172A;
   margin-bottom: 1.5rem;
 }
 
 .loginForm input {
   width: 100%;
-  padding: 0.55rem 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
   font-size: 0.95rem;
+  background-color: #FFFFFF;
+  color: #0F172A;
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 
 .loginForm input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 1px rgba(102, 126, 234, 0.35);
+  border-color: #6366F1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .loginForm button {
   width: 100%;
-  padding: 0.7rem;
-  background-color: #667eea;
+  padding: 0.8rem;
+  background-color: #173c7f; /* Important CTA: Violet */
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.98rem;
-  font-weight: 500;
+  font-weight: 600;
+  transition: background-color 200ms ease, transform 100ms ease;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
 }
 
 .loginForm button:hover {
-  background-color: #5a67d8;
+  background-color: #7C3AED; /* Hover Violet */
+  transform: translateY(-1px) scale(1.02);
+}
+
+.loginForm button:active {
+  transform: translateY(0) scale(1);
 }
 
 .bottom {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   text-align: center;
 }
 
 .forgotPass {
-  color: red;
+  color: #64748B;
   cursor: pointer;
-  margin-bottom: 0.7rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  transition: color 150ms ease;
+}
+
+.forgotPass:hover {
+  color: #0F172A;
 }
 
 .signUp {
   display: flex;
   justify-content: center;
   gap: 4px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: #64748B;
 }
 
 .signUp a {
-  color: blue;
+  color: #6366F1; /* Primary brand Indigo link */
   text-decoration: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .signUp a:hover {
   text-decoration: underline;
 }
 
-/* Footer consistent with index */
-
 .footer {
-  background-color: #2d3748;
-  color: #e2e8f0;
-  padding: 2rem 1rem;
+  background-color: #041745;
+  color: #F8FAFC;
+  padding: 2.5rem 1rem;
   text-align: center;
   margin-top: auto;
   font-size: 0.9rem;
+  border-top: 1px solid #E2E8F0;
 }
-
-/* Responsive tweaks similar to index */
 
 @media (max-width: 768px) {
   .nav-container {
@@ -206,7 +229,7 @@ main {
 
   .loginForm {
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
   }
 
   .container {
@@ -225,12 +248,66 @@ html {
 }
 
 *:focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid #6366F1;
   outline-offset: 2px;
 }
 
 button:focus,
 input:focus,
 select:focus {
+  outline: none;
+}
+
+/* Pill buttons for navigation */
+.btn-outline-pill {
+  color: #002171;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn-outline-pill:hover {
+  background-color: #f8fafc;
+  border-color: #002171;
+  color: #002171;
+  transform: translateY(-1px);
+}
+
+.btn-solid-pill {
+  color: #ffffff;
+  background-color: #002171;
+  border: 1px solid #002171;
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 33, 113, 0.2);
+}
+
+.btn-solid-pill:hover {
+  background-color: #173c7f;
+  border-color: #173c7f;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 33, 113, 0.3);
+}
+
+.nav-link:focus,
+.btn-outline-pill:focus,
+.btn-solid-pill:focus {
   outline: none;
 }

@@ -19,7 +19,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serving static files from root public folder (one level up from /src)
 app.use(express.static(path.join(__dirname, '../public')));
 
 // API Routes
@@ -29,9 +28,12 @@ app.use('/api/admin/auth', adminAuthRoutes);
 
 app.use('/api/admin', requireAdmin, adminRoutes);
 
-// Serves the homepage
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'));
+});
+
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/imgs/favicon.webp'));
 });
 
 // Global Error Handler

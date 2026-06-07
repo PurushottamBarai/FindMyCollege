@@ -18,8 +18,9 @@
           </div>
           <div class="nav-links">
             <a href="index.html" class="nav-link active">Home</a>
-
-            <a href="login.html" class="nav-link" id="loginNavLink">Login</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="login.html" class="btn-outline-pill" id="loginNavLink">Login</a>
+            <a href="register.html" class="btn-solid-pill" id="registerNavLink">Get Started</a>
 
             <div
               class="profile-wrapper"
@@ -60,6 +61,13 @@
 
             <div class="filters-row">
               <div class="filter-group">
+                <label for="courseTypeSelect">Course Type</label>
+                <select id="courseTypeSelect" class="filter-select">
+                  <option value="All">All</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
                 <label for="courseSelect">Course</label>
                 <select id="courseSelect" class="filter-select">
                   <option value="All">All</option>
@@ -74,8 +82,8 @@
               </div>
 
               <div class="filter-group">
-                <label for="courseTypeSelect">Course Type</label>
-                <select id="courseTypeSelect" class="filter-select">
+                <label for="statusSelect">Status</label>
+                <select id="statusSelect" class="filter-select">
                   <option value="All">All</option>
                 </select>
               </div>

@@ -1,0 +1,164 @@
+/* about.css - Premium styling for the About page */
+
+.page-wrapper-about {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 20px 6rem;
+  width: 100%;
+}
+
+/* Hero Section */
+.about-hero {
+  text-align: center;
+  padding: 4rem 0 3rem;
+  background: radial-gradient(
+    circle at top center,
+    rgba(99, 102, 241, 0.08),
+    transparent 60%
+  );
+  border-radius: 24px;
+  margin-bottom: 3rem;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #002171;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  color: #64748B;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Metrics Section */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.metric-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.metric-card .number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #173c7f;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.metric-card .label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Content Grid */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+.about-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  overflow: hidden;
+}
+
+.about-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #002171, #173c7f);
+}
+
+.about-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #002171;
+  margin-bottom: 1rem;
+}
+
+.about-card p {
+  color: #64748B;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.features-list {
+  list-style: none;
+  margin-top: 1.2rem;
+}
+
+.features-list li {
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1.5rem;
+  color: #64748B;
+  font-size: 1rem;
+}
+
+.features-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #173c7f;
+  font-weight: 700;
+}
+
+/* Focus and interactive styles */
+.about-card *:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .metrics-row {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

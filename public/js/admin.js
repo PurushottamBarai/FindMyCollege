@@ -8,9 +8,12 @@ function toggleDropdown() {
 }
 
 document.addEventListener("click", function (event) {
-  const profileSection = document.querySelector(".profile-section");
-  if (!profileSection.contains(event.target)) {
-    document.getElementById("profileDropdown").classList.remove("show");
+  const profileWrapper = document.querySelector(".profile-wrapper");
+  if (profileWrapper && !profileWrapper.contains(event.target)) {
+    const profileDropdown = document.getElementById("profileDropdown");
+    if (profileDropdown) {
+      profileDropdown.classList.remove("show");
+    }
   }
 });
 
@@ -72,7 +75,7 @@ document
 
     const formData = new FormData(this);
     const collegeData = {
-      "Sr. No.": parseInt(formData.get("Sr. No.")),
+      SrNo: parseInt(formData.get("Sr. No.")),
       "College Code": formData.get("College Code"),
       "College Name": formData.get("College Name"),
       District: formData.get("District"),
@@ -161,7 +164,7 @@ function showUpdateEditForm(college) {
   document.getElementById("updateEditForm").classList.add("show");
 
   document.getElementById("updateCollegeId").value = college._id;
-  document.getElementById("updateSrNo").value = college["Sr. No."];
+  document.getElementById("updateSrNo").value = college.SrNo || "";
   document.getElementById("updateCollegeName").value = college["College Name"];
   document.getElementById("updateCollegeCode").value = college["College Code"];
   document.getElementById("updateDistrict").value = college["District"];
@@ -180,6 +183,7 @@ document
     const collegeId = document.getElementById("updateCollegeId").value;
     const formData = new FormData(this);
     const updates = {
+      SrNo: parseInt(formData.get("Sr. No.")),
       "College Name": formData.get("College Name"),
       "College Code": formData.get("College Code"),
       District: formData.get("District"),

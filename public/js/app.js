@@ -35,17 +35,6 @@ class CollegeSearchApp {
   }
 
   populateFilterSelects() {
-    const courseSelect = document.getElementById("courseSelect");
-    if (this.filterOptions.courseNames && courseSelect) {
-      courseSelect.innerHTML = '<option value="All">All</option>';
-      this.filterOptions.courseNames.forEach((course) => {
-        const option = document.createElement("option");
-        option.value = course;
-        option.textContent = course;
-        courseSelect.appendChild(option);
-      });
-    }
-
     const districtSelect = document.getElementById("districtSelect");
     if (this.filterOptions.districts && districtSelect) {
       districtSelect.innerHTML = '<option value="All">All</option>';
@@ -67,9 +56,57 @@ class CollegeSearchApp {
         courseTypeSelect.appendChild(option);
       });
     }
+
+    const statusSelect = document.getElementById("statusSelect");
+    if (this.filterOptions.statuses && statusSelect) {
+      statusSelect.innerHTML = '<option value="All">All</option>';
+      this.filterOptions.statuses.forEach((status) => {
+        const option = document.createElement("option");
+        option.value = status;
+        option.textContent = status;
+        statusSelect.appendChild(option);
+      });
+    }
+
+    // Populate courseSelect initially
+    this.updateCourseDropdown();
+  }
+
+  updateCourseDropdown() {
+    const courseSelect = document.getElementById("courseSelect");
+    const courseTypeSelect = document.getElementById("courseTypeSelect");
+    if (!courseSelect || !courseTypeSelect) return;
+
+    const selectedType = courseTypeSelect.value;
+    courseSelect.innerHTML = '<option value="All">All</option>';
+
+    let courses = [];
+    if (selectedType === "Under Graduate") {
+      courses = this.filterOptions.ugCourses || [];
+    } else if (selectedType === "Post Graduate") {
+      courses = this.filterOptions.pgCourses || [];
+    } else {
+      const ug = this.filterOptions.ugCourses || [];
+      const pg = this.filterOptions.pgCourses || [];
+      courses = [...ug, ...pg];
+    }
+
+    courses.forEach((course) => {
+      const option = document.createElement("option");
+      option.value = course;
+      option.textContent = course;
+      courseSelect.appendChild(option);
+    });
   }
 
   bindEvents() {
+    const courseTypeSelect = document.getElementById("courseTypeSelect");
+    if (courseTypeSelect) {
+      courseTypeSelect.addEventListener("change", () => {
+        this.updateCourseDropdown();
+      });
+    }
+
     const searchForm = document.getElementById("searchForm");
     if (searchForm) {
       searchForm.addEventListener("submit", (e) => {
@@ -142,15 +179,20 @@ class CollegeSearchApp {
   buildSearchParams() {
     const params = new URLSearchParams();
 
+    const courseTypeSelect = document.getElementById("courseTypeSelect");
+    const statusSelect = document.getElementById("statusSelect");
+
     const search = document.getElementById("searchInput")?.value?.trim() || '';
     const course = document.getElementById("courseSelect")?.value || 'All';
     const district = document.getElementById("districtSelect")?.value || 'All';
-    const courseType = document.getElementById("courseTypeSelect")?.value || 'All';
+    const courseType = courseTypeSelect?.value || 'All';
+    const status = statusSelect?.value || 'All';
 
     if (search) params.append("search", search);
     if (course !== "All") params.append("course", course);
     if (district !== "All") params.append("district", district);
     if (courseType !== "All") params.append("courseType", courseType);
+    if (status !== "All") params.append("status", status);
 
     params.append("page", this.currentPage.toString());
     params.append("limit", this.itemsPerPage.toString());
@@ -170,7 +212,7 @@ class CollegeSearchApp {
     colleges.forEach((college) => {
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${college['Sr. No.'] || 'N/A'}</td>
+        <td>${college.SrNo || 'N/A'}</td>
         <td><a href="#" class="college-code-link" onclick="window.fetchCollegeDetails('${college['College Code']}'); return false;">${college['College Code'] || 'N/A'}</a></td>
         <td>${college['District'] || 'N/A'}</td>
         <td class="college-name">${college['College Name'] || 'N/A'}</td>
