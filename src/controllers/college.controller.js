@@ -128,12 +128,32 @@ export const getColleges = async (req, res, next) => {
         const getSrNo = (c) => {
             if (c.SrNo !== undefined && c.SrNo !== null) return c.SrNo;
             if (c["Sr. No."] !== undefined && c["Sr. No."] !== null) return c["Sr. No."];
-            if (c.Sr && c.Sr.No !== undefined && c.Sr.No !== null) {
-                if (typeof c.Sr.No === 'object') {
-                    const nestedVal = c.Sr.No[""] || Object.values(c.Sr.No)[0];
-                    if (nestedVal !== undefined && nestedVal !== null) return nestedVal;
+            if (c.Sr) {
+                const spaceNo = c.Sr[" No"] || c.Sr["No"];
+                if (spaceNo !== undefined && spaceNo !== null) {
+                    if (typeof spaceNo === 'object') {
+                        const nestedVal = spaceNo[""] || Object.values(spaceNo)[0];
+                        if (nestedVal !== undefined && nestedVal !== null) return nestedVal;
+                    }
+                    return spaceNo;
                 }
-                return c.Sr.No;
+                if (c.Sr.No !== undefined && c.Sr.No !== null) {
+                    if (typeof c.Sr.No === 'object') {
+                        const nestedVal = c.Sr.No[""] || Object.values(c.Sr.No)[0];
+                        if (nestedVal !== undefined && nestedVal !== null) return nestedVal;
+                    }
+                    return c.Sr.No;
+                }
+                for (const key of Object.keys(c.Sr)) {
+                    const val = c.Sr[key];
+                    if (val !== undefined && val !== null) {
+                        if (typeof val === 'object') {
+                            const nestedVal = val[""] || Object.values(val)[0];
+                            if (nestedVal !== undefined && nestedVal !== null) return nestedVal;
+                        }
+                        return val;
+                    }
+                }
             }
             return null;
         };
