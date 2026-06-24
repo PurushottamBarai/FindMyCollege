@@ -296,6 +296,39 @@ main {
   border-radius: 8px;
   color: #64748B;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.page-input {
+  width: 55px;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 8px;
+  background: #FFFFFF;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-out;
+}
+
+.page-input:focus {
+  border-color: #6366F1;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+.page-input::-webkit-outer-spin-button,
+.page-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.page-input {
+  -moz-appearance: textfield;
 }
 
 .no-results {

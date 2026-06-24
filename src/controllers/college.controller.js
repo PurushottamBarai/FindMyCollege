@@ -9,7 +9,7 @@ export const getColleges = async (req, res, next) => {
             courseType,
             status,
             page = 1,
-            limit = 20
+            limit = 30
         } = req.query;
 
         const filter = {};

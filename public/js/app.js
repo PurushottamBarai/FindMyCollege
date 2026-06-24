@@ -2,7 +2,7 @@ class CollegeSearchApp {
   constructor() {
     this.currentPage = 1;
     this.totalPages = 1;
-    this.itemsPerPage = 20;
+    this.itemsPerPage = 30;
     this.filterOptions = {};
 
     this.init();
@@ -146,6 +146,19 @@ class CollegeSearchApp {
         }
       });
     }
+
+    const pageInput = document.getElementById("pageInput");
+    if (pageInput) {
+      pageInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          this.handlePageJump();
+        }
+      });
+      pageInput.addEventListener("blur", () => {
+        this.handlePageJump();
+      });
+    }
   }
 
   async performSearch() {
@@ -231,11 +244,19 @@ class CollegeSearchApp {
 
     const prevBtn = document.getElementById("prevPage");
     const nextBtn = document.getElementById("nextPage");
-    const pageInfo = document.getElementById("pageInfo");
+    const pageInput = document.getElementById("pageInput");
+    const totalPagesSpan = document.getElementById("totalPages");
 
     if (prevBtn) prevBtn.disabled = this.currentPage <= 1;
     if (nextBtn) nextBtn.disabled = this.currentPage >= this.totalPages;
-    if (pageInfo) pageInfo.textContent = `Page ${this.currentPage} of ${this.totalPages}`;
+    
+    if (pageInput) {
+      pageInput.value = this.currentPage;
+      pageInput.max = this.totalPages;
+    }
+    if (totalPagesSpan) {
+      totalPagesSpan.textContent = this.totalPages;
+    }
 
     if (this.totalPages > 1) {
       this.showPagination();
@@ -306,6 +327,27 @@ class CollegeSearchApp {
   showError(message) {
     console.error(message);
     alert(message);
+  }
+
+  handlePageJump() {
+    const pageInput = document.getElementById("pageInput");
+    if (!pageInput) return;
+
+    let targetPage = parseInt(pageInput.value, 10);
+    const maxPages = this.totalPages > 0 ? this.totalPages : 1;
+
+    if (isNaN(targetPage) || targetPage < 1) {
+      targetPage = 1;
+    } else if (targetPage > maxPages) {
+      targetPage = maxPages;
+    }
+
+    if (targetPage !== this.currentPage) {
+      this.currentPage = targetPage;
+      this.performSearch();
+    } else {
+      pageInput.value = this.currentPage;
+    }
   }
 }
 
