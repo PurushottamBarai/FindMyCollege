@@ -1,7 +1,23 @@
+# Dependency directories
 node_modules/
+**/node_modules/
+
+# Environment files
 .env
-*.log
-.DS_Store
+**/.env
+.env*.local
+
+# Build output directories
+dist/
+**/dist/
+**/dist-ssr/
+
+# Editor files
 .vscode/
-.gitattributes
-src/db/data/UG.json
+.idea/
+.DS_Store
+
+# Logs and system files
+*.log
+**/logs/
+Thumbs.db

@@ -1,20 +1,13 @@
 {
-  "name": "findmycollege",
+  "name": "findmycollege-root",
   "version": "1.0.0",
-  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "seed": "node src/db/seeder.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^4.21.2",
-    "mongoose": "^7.8.7"
-  },
-  "engines": {
-    "node": ">=18"
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "build-client": "npm run build --prefix client",
+    "build": "npm run build-client",
+    "postinstall": "npm run install-server && npm run install-client && npm run build-client",
+    "start": "node server/src/index.js"
   }
 }
